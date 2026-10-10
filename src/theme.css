@@ -1,0 +1,197 @@
+/* Quiet Chat — a local theme inspired by the supplied ChatGPT desktop reference.
+   No external assets, fonts, or dependencies. Semantic document borders remain. */
+body {
+  --font-text-size: 16px;
+  --line-height-normal: 1.7;
+  --file-line-width: 780px;
+  --file-margins: 36px 44px 64px;
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-l: 16px;
+  --radius-xl: 20px;
+  --tab-radius-active: 10px;
+  --tab-outline-width: 0px;
+  --tab-curve: 0px;
+  --divider-width: 1px;
+  --divider-color: transparent;
+  --divider-color-hover: var(--interactive-accent);
+  --divider-width-hover: 2px;
+  --nav-item-size: 14px;
+  --nav-item-padding: 7px 10px;
+  --nav-item-radius: 9px;
+  --nav-indentation-guide-width: 0px;
+  --h1-size: 1.9em;
+  --h2-size: 1.45em;
+  --h3-size: 1.2em;
+  --h1-weight: 650;
+  --h2-weight: 600;
+  --h3-weight: 600;
+  --heading-spacing: 1.6em;
+  --inline-title-size: 2em;
+  --inline-title-weight: 650;
+  --p-spacing: 1em;
+  --input-radius: 10px;
+  --input-shadow: none;
+  --input-shadow-hover: none;
+  --modal-radius: 20px;
+  --menu-radius: 12px;
+  --callout-radius: 12px;
+  --code-radius: 10px;
+  --blockquote-border-thickness: 3px;
+  --scrollbar-thumb-bg: rgba(120,120,120,.17);
+  --scrollbar-active-thumb-bg: rgba(120,120,120,.3);
+}
+.theme-light {
+  --background-primary: #ffffff;
+  --background-primary-alt: #fafafa;
+  --background-secondary: #f5f5f5;
+  --background-secondary-alt: #f5f5f5;
+  --background-modifier-border: #e9e9e9;
+  --background-modifier-border-hover: #d6d6d6;
+  --background-modifier-border-focus: #8eb8ea;
+  --background-modifier-hover: rgba(0,0,0,.035);
+  --text-normal: #343434;
+  --text-muted: #757575;
+  --text-faint: #929292;
+  --text-accent: #346cb2;
+  --text-accent-hover: #24548c;
+  --interactive-accent: #3d7ddd;
+  --interactive-accent-hover: #306ac2;
+  --interactive-normal: #f4f4f4;
+  --interactive-hover: #eaeaea;
+  --nav-item-background-active: #e8f2ff;
+  --nav-item-color-active: #28537d;
+  --tab-background-active: #ffffff;
+  --text-selection: #dcecff;
+  --code-background: #f6f6f6;
+  --qc-shadow: 0 2px 12px rgba(0,0,0,.035);
+  --qc-popup-shadow: 0 8px 36px rgba(0,0,0,.09);
+}
+.theme-dark {
+  --background-primary: #212121;
+  --background-primary-alt: #252525;
+  --background-secondary: #181818;
+  --background-secondary-alt: #181818;
+  --background-modifier-border: #333333;
+  --background-modifier-border-hover: #494949;
+  --background-modifier-border-focus: #6b96c6;
+  --background-modifier-hover: rgba(255,255,255,.055);
+  --text-normal: #e5e5e5;
+  --text-muted: #aaaaaa;
+  --text-faint: #818181;
+  --text-accent: #9ec6fa;
+  --text-accent-hover: #c3dcff;
+  --interactive-accent: #679ce6;
+  --interactive-accent-hover: #85b3f3;
+  --interactive-normal: #303030;
+  --interactive-hover: #3a3a3a;
+  --nav-item-background-active: #293c53;
+  --nav-item-color-active: #d1e5ff;
+  --tab-background-active: #303030;
+  --text-selection: #344b66;
+  --code-background: #2a2a2a;
+  --qc-shadow: 0 2px 12px rgba(0,0,0,.12);
+  --qc-popup-shadow: 0 8px 36px rgba(0,0,0,.3);
+}
+/* A quiet shell; pane gaps replace permanent dividing rules. */
+.workspace, .workspace-split, .workspace-tabs {
+  background: var(--background-secondary);
+}
+.workspace-tab-header-container, .workspace-ribbon,
+.workspace-sidedock-vault-profile, .view-header {
+  border: none;
+  box-shadow: none;
+  background: var(--background-secondary);
+}
+.workspace-tab-header { box-shadow: none !important; }
+/* Center every desktop header on the same 40px rail. Preserve horizontal
+   padding reserved by Obsidian for macOS traffic lights and sidebar toggles. */
+body:not(.is-mobile) .workspace-tab-header-container {
+  height: var(--header-height);
+  padding-top: 0;
+  padding-bottom: 0;
+  align-items: center;
+}
+body:not(.is-mobile) .workspace-tab-header-container-inner {
+  height: 100%;
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  align-items: center;
+}
+body:not(.is-mobile) .workspace-tab-header {
+  height: 28px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  align-self: center;
+}
+body:not(.is-mobile) .workspace-tab-header-inner {
+  height: 100%;
+  align-items: center;
+}
+body:not(.is-mobile) .mod-root .workspace-tab-header {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+body:not(.is-mobile) .workspace-tab-header-new-tab,
+body:not(.is-mobile) .workspace-tab-header-tab-list,
+body:not(.is-mobile) .sidebar-toggle-button {
+  height: var(--header-height);
+  padding-top: 0;
+  padding-bottom: 0;
+  align-items: center;
+}
+.workspace-tab-header::before, .workspace-tab-header::after,
+.workspace-tab-header-inner::after { display: none; }
+.workspace-tab-header.is-active { border-radius: 10px; }
+body:not(.is-mobile) .mod-root .workspace-tab-container {
+  margin: 0 7px 10px;
+  border-radius: var(--qc-pane-radius, 18px);
+  background: var(--background-primary);
+  box-shadow: var(--qc-shadow);
+  overflow: hidden;
+}
+.mod-root .workspace-leaf,
+.mod-root .workspace-leaf-content { background: var(--background-primary); }
+.mod-root .view-header { background: var(--background-primary); }
+.workspace-split.mod-left-split .workspace-leaf-content,
+.workspace-split.mod-right-split .workspace-leaf-content {
+  background: var(--background-secondary);
+}
+.nav-files-container { padding: 8px 10px 16px; }
+.nav-file-title, .nav-folder-title { margin-bottom: 2px; }
+.nav-folder-title { font-weight: 500; }
+.nav-file-title.is-active { font-weight: 500; }
+.nav-buttons-container { justify-content: flex-start; padding: 8px 12px; gap: 4px; }
+.clickable-icon { border-radius: 8px; }
+.workspace-sidedock-vault-profile { padding: 10px 14px; }
+
+/* Rounded overlays and gentle controls, with visible keyboard focus. */
+.menu, .modal, .prompt {
+  border: 1px solid var(--background-modifier-border);
+  box-shadow: var(--qc-popup-shadow);
+}
+.prompt { border-radius: 18px; }
+.suggestion-item { border-radius: 8px; padding: 9px 12px; }
+.suggestion-item.is-selected { background: var(--nav-item-background-active); }
+button:focus-visible, .clickable-icon:focus-visible {
+  outline: 2px solid var(--interactive-accent);
+  outline-offset: 2px;
+}
+/* Keep content semantics: tables, quotes, code and callouts retain structure. */
+.markdown-rendered pre { border-radius: 12px; padding: 18px 20px; }
+.markdown-rendered blockquote { color: var(--text-muted); }
+.markdown-rendered hr { border-color: var(--background-modifier-border); }
+.markdown-rendered table { font-size: .95em; }
+.markdown-rendered img { border-radius: 10px; }
+.metadata-container { border-radius: 12px; }
+.cm-line.HyperMD-header { padding-top: .7em; }
+@media (max-width: 700px) {
+  body { --file-margins: 24px 20px; }
+  .nav-files-container { padding-inline: 6px; }
+}
+@media print {
+  .mod-root .workspace-tab-container { box-shadow: none; margin: 0; }
+}

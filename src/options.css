@@ -1,0 +1,7 @@
+body.quiet-chat.qc-hide-status .status-bar { display:none; }
+body.quiet-chat.qc-hide-ribbon .workspace-ribbon { display:none; }
+body.quiet-chat.qc-hide-header .workspace-leaf-content > .view-header { display:none; }
+body.quiet-chat.qc-system-fonts {
+ --font-interface: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+ --font-text: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+}
