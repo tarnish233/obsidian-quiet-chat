@@ -1,0 +1,113 @@
+/* Typora GitHub-inspired proportions, implemented for Obsidian's two renderers.
+   Keep Quiet Chat's borderless headings and system fonts; no bundled Typora CSS/assets. */
+body {
+  --font-text-size: 16px;
+  --line-height-normal: 1.6;
+  --line-height-tight: 1.4;
+  --p-spacing: .8em;
+  --heading-spacing: 1rem;
+  --h1-size: 2.25em;
+  --h2-size: 1.75em;
+  --h3-size: 1.5em;
+  --h4-size: 1.25em;
+  --h5-size: 1em;
+  --h6-size: 1em;
+  --h1-line-height: 1.2;
+  --h2-line-height: 1.225;
+  --h3-line-height: 1.43;
+  --h4-line-height: 1.4;
+  --h5-line-height: 1.4;
+  --h6-line-height: 1.4;
+  --h1-weight: 700;
+  --h2-weight: 700;
+  --h3-weight: 700;
+  --h4-weight: 700;
+  --h5-weight: 700;
+  --h6-weight: 700;
+  --h6-color: var(--text-muted);
+  --inline-title-size: 2.25em;
+  --inline-title-line-height: 1.2;
+  --inline-title-weight: 700;
+  --list-spacing: .2em;
+  --list-indent: 1.875em;
+  --code-size: .9em;
+  --code-radius: 6px;
+  --code-border-width: 0;
+  --blockquote-border-thickness: 4px;
+  --blockquote-border-color: var(--background-modifier-border-hover);
+  --blockquote-color: var(--text-muted);
+  --blockquote-font-style: normal;
+  --table-text-size: 1em;
+  --table-cell-padding: 6px 13px;
+  --table-header-weight: 700;
+  --table-header-background: var(--background-primary-alt);
+  --table-row-alt-background: var(--background-primary-alt);
+}
+/* Use the same document baseline in Reading view and Live Preview.
+   Do not add padding to every CM line: it breaks multiline paragraphs and code. */
+.markdown-preview-view,
+.markdown-source-view.mod-cm6 .cm-scroller {
+  font-size: var(--font-text-size);
+  line-height: var(--line-height-normal);
+}
+.markdown-rendered p,
+.markdown-rendered blockquote,
+.markdown-rendered ul,
+.markdown-rendered ol,
+.markdown-rendered dl,
+.markdown-rendered table {
+  margin-block: .8em;
+}
+.markdown-rendered h1,
+.markdown-rendered h2,
+.markdown-rendered h3,
+.markdown-rendered h4,
+.markdown-rendered h5,
+.markdown-rendered h6 {
+  margin-block: 1rem;
+  padding: 0;
+  border-bottom: none;
+}
+.markdown-rendered li > ul,
+.markdown-rendered li > ol {
+  margin-block: 0;
+}
+.markdown-rendered li > p { margin-block: .4em; }
+.markdown-rendered blockquote {
+  padding: 0 15px;
+  border-radius: 0;
+}
+.markdown-rendered blockquote > p:first-child { margin-top: 0; }
+.markdown-rendered blockquote > p:last-child { margin-bottom: 0; }
+.markdown-rendered pre {
+  margin-block: 15px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  line-height: 1.6;
+}
+.markdown-rendered pre code {
+  font-size: var(--code-size);
+  line-height: inherit;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+.markdown-rendered :not(pre) > code {
+  font-size: .9em;
+  padding: 2px 4px;
+  border-radius: 4px;
+  overflow-wrap: anywhere;
+}
+.markdown-rendered table { font-size: 1em; border-collapse: collapse; }
+.markdown-rendered th,
+.markdown-rendered td { padding: 6px 13px; }
+.markdown-rendered tbody tr:nth-child(even) { background: var(--background-primary-alt); }
+.markdown-rendered thead { background: var(--background-primary-alt); }
+.markdown-rendered hr { margin-block: 24px; }
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header {
+  padding-top: 16px;
+  padding-bottom: 4px;
+}
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock { line-height: 1.6; }
+/* Source mode keeps literal blank lines; only visual text styles are shared.
+   Formula, callout and table widgets retain Obsidian's own geometry. */

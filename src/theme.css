@@ -187,7 +187,7 @@ button:focus-visible, .clickable-icon:focus-visible {
 .markdown-rendered table { font-size: .95em; }
 .markdown-rendered img { border-radius: 10px; }
 .metadata-container { border-radius: 12px; }
-.cm-line.HyperMD-header { padding-top: .7em; }
+
 @media (max-width: 700px) {
   body { --file-margins: 24px 20px; }
   .nav-files-container { padding-inline: 6px; }

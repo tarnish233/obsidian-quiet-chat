@@ -1,7 +1,7 @@
 import {build} from 'esbuild';
 import postcss from 'postcss';
 import {readFile,writeFile} from 'node:fs/promises';
-const css=postcss.parse(await readFile('src/theme.css','utf8'));
+const css=postcss.parse(await readFile('src/theme.css','utf8')+'\n'+await readFile('src/typography.css','utf8'));
 css.walkRules(rule=>{
  rule.selectors=rule.selectors.map(s=>{
   s=s.trim();

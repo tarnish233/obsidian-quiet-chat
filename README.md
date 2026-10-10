@@ -19,6 +19,7 @@ Screenshots use synthetic example content, not a real vault.
 ## Features / 功能
 
 - Rounded panes, menus, quick switcher and code blocks.
+- Typora GitHub-inspired document proportions: 16px text, 1.6 line height, 0.8em paragraph spacing, and 36/28/24/20px heading levels. Implemented for Reading view and Live Preview, with borderless headings to match Quiet Chat.
 - Adjustable pane radius and readable text width.
 - Optional system fonts for text and UI; your code font is preserved.
 - Independent switches for hiding the ribbon, status bar and note header.
@@ -61,7 +62,7 @@ npm ci
 npm run check
 ```
 
-`src/theme.css` is the base design; the build scopes every selector to `body.quiet-chat` so styles cannot remain active after unloading. `src/options.css` provides setting-controlled styles. `main.js` and `styles.css` are generated release artifacts.
+`src/theme.css` is the base design; the build scopes every selector to `body.quiet-chat` so styles cannot remain active after unloading. `src/typography.css` provides the document typography; `src/options.css` provides setting-controlled styles. `main.js` and `styles.css` are generated release artifacts.
 
 Checks cover TypeScript compilation, settings validation, selector isolation, and cleanup across load/toggle/popout/unload. Desktop light/dark mode, tab alignment and split panes were visually checked during development. Obsidian UI selectors may change in future releases; full third-party theme compatibility is not guaranteed.
 
