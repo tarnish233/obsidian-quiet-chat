@@ -23,7 +23,10 @@ Screenshots use synthetic example content, not a real vault.
 - Vertically aligned Quick Switcher file icons, reusing Material Icon Theme when enabled and falling back to a standard file icon.
 - Aligned file-tree padding with constrained spacer widths to prevent sideways scrolling.
 - Typora GitHub-inspired document proportions: 16px text, 1.6 line height, 0.8em paragraph spacing, and 36/28/24/20px heading levels. Implemented for Reading view and Live Preview, with borderless headings to match Quiet Chat.
-- Adjustable pane radius and readable text width.
+- Adjustable pane radius, readable text width, text size, line height, paragraph spacing, heading scale and heading spacing.
+- Separate controls for list item spacing, nested indentation and vertical spacing between list levels. Paragraph spacing applies to Reading view; the editor preserves source blank lines.
+- Grouped settings with Chinese and English on separate lines.
+- Inset document scroll viewports keep native scrollbars clear of pane corners.
 - Optional system fonts for text and UI; your code font is preserved.
 - Independent switches for hiding the ribbon, status bar and note header.
 - **The ribbon is not hidden by default.**

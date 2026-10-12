@@ -6,12 +6,12 @@ body {
   --line-height-tight: 1.4;
   --p-spacing: .8em;
   --heading-spacing: 1rem;
-  --h1-size: 2.25em;
-  --h2-size: 1.75em;
-  --h3-size: 1.5em;
-  --h4-size: 1.25em;
-  --h5-size: 1em;
-  --h6-size: 1em;
+  --h1-size: calc(2.25em * var(--qc-heading-scale, 1));
+  --h2-size: calc(1.75em * var(--qc-heading-scale, 1));
+  --h3-size: calc(1.5em * var(--qc-heading-scale, 1));
+  --h4-size: calc(1.25em * var(--qc-heading-scale, 1));
+  --h5-size: calc(1em * var(--qc-heading-scale, 1));
+  --h6-size: calc(1em * var(--qc-heading-scale, 1));
   --h1-line-height: 1.2;
   --h2-line-height: 1.225;
   --h3-line-height: 1.43;
@@ -25,7 +25,7 @@ body {
   --h5-weight: 700;
   --h6-weight: 700;
   --h6-color: var(--text-muted);
-  --inline-title-size: 2.25em;
+  --inline-title-size: calc(2.25em * var(--qc-heading-scale, 1));
   --inline-title-line-height: 1.2;
   --inline-title-weight: 700;
   --list-spacing: .2em;
@@ -56,7 +56,7 @@ body {
 .markdown-rendered ol,
 .markdown-rendered dl,
 .markdown-rendered table {
-  margin-block: .8em;
+  margin-block: var(--p-spacing);
 }
 .markdown-rendered h1,
 .markdown-rendered h2,
@@ -64,13 +64,13 @@ body {
 .markdown-rendered h4,
 .markdown-rendered h5,
 .markdown-rendered h6 {
-  margin-block: 1rem;
+  margin-block: var(--qc-heading-top, 16px) var(--qc-heading-bottom, 16px);
   padding: 0;
   border-bottom: none;
 }
 .markdown-rendered li > ul,
 .markdown-rendered li > ol {
-  margin-block: 0;
+  margin-block: var(--qc-list-level-gap, 0px);
 }
 .markdown-rendered li > p { margin-block: .4em; }
 .markdown-rendered blockquote {
@@ -105,8 +105,8 @@ body {
 .markdown-rendered thead { background: var(--background-primary-alt); }
 .markdown-rendered hr { margin-block: 24px; }
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-header {
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding-top: var(--qc-heading-top, 16px);
+  padding-bottom: var(--qc-heading-bottom, 16px);
 }
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock { line-height: 1.6; }
 /* Source mode keeps literal blank lines; only visual text styles are shared.

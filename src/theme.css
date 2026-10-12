@@ -234,3 +234,11 @@ button:focus-visible, .clickable-icon:focus-visible {
   pointer-events: none;
 }
 .qc-tab-icon svg { display: block; width: 16px; height: 16px; }
+
+/* Inset the scroll viewport itself: macOS overlay scrollbars can ignore
+   WebKit track margins. Native scrolling then stays clear of both corners. */
+body:not(.is-mobile) .mod-root .markdown-source-view.mod-cm6 .cm-editor,
+body:not(.is-mobile) .mod-root .markdown-reading-view {
+  box-sizing: border-box;
+  padding-block: var(--qc-pane-radius, 18px);
+}

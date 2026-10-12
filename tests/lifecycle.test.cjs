@@ -32,3 +32,13 @@ test('all distributed style rules require the plugin body class',()=>{
  postcss.parse(fs.readFileSync('styles.css','utf8')).walkRules(r=>{for(const selector of r.selectors){assert.ok(selector.startsWith('body.quiet-chat'),selector);count++}});
  assert.ok(count>40);
 });
+
+test('typography settings preserve decimals and clamp unsafe values',async()=>{
+ const {plugin,a}=setup({fontSize:999,lineHeight:1.85,paragraphSpacing:NaN,listSpacing:-2,headingScale:1.15,headingTop:Infinity,headingBottom:24});
+ await plugin.onload();
+ assert.equal(plugin.settings.fontSize,24);assert.equal(plugin.settings.lineHeight,1.85);
+ assert.equal(plugin.settings.paragraphSpacing,0.8);assert.equal(plugin.settings.listSpacing,0);
+ assert.equal(plugin.settings.headingScale,1.15);assert.equal(plugin.settings.headingTop,16);
+ assert.ok(a.styles[0].textContent.includes('--qc-heading-bottom: 24px'));
+ plugin.onunload();
+});
