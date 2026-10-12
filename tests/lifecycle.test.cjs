@@ -5,12 +5,12 @@ const fs=require('node:fs');
 function doc(){const classes=new Set(),styles=[];return {classes,styles,body:{classList:{toggle:(k,v)=>v?classes.add(k):classes.delete(k),remove:k=>classes.delete(k)}},head:{appendChild:s=>styles.push(s)},createElement:()=>({dataset:{},textContent:'',remove(){styles.splice(styles.indexOf(this),1)}})};}
 function setup(data){
  const a=doc(),b=doc(),events={};
- class Plugin{async loadData(){return data}async saveData(s){this.saved=structuredClone(s)}registerEvent(){}addSettingTab(){}addCommand(){}}
+ class Plugin{async loadData(){return data}async saveData(s){this.saved=structuredClone(s)}register(){}registerEvent(){}addSettingTab(){}addCommand(){}}
  const mock={Plugin,PluginSettingTab:class{},Setting:class{}};
  const context={module:{exports:{}},require:n=>{assert.equal(n,'obsidian');return mock},console};
  vm.runInNewContext(fs.readFileSync('main.js','utf8'),context);
  const plugin=new context.module.exports.default();
- plugin.app={workspace:{containerEl:{ownerDocument:a},onLayoutReady:f=>f(),iterateAllLeaves:f=>f({view:{containerEl:{ownerDocument:b}}}),on:(name,f)=>{events[name]=f;return name}}};
+ plugin.app={vault:{on:()=>{}},workspace:{containerEl:{ownerDocument:a},onLayoutReady:f=>f(),iterateAllLeaves:f=>f({view:{containerEl:{ownerDocument:b}}}),on:(name,f)=>{events[name]=f;return name}}};
  return {plugin,a,b,events};
 }
 test('load, toggle, popout, unload leave no appearance residue',async()=>{

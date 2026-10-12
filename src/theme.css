@@ -219,3 +219,18 @@ button:focus-visible, .clickable-icon:focus-visible {
   pointer-events: none;
 }
 .qc-switcher-icon svg { width: 18px; height: 18px; display: block; }
+
+/* File tabs use the same icon resolver as Quick Switcher. */
+.mod-root .workspace-tab-header-inner:has(> .qc-tab-icon) > .workspace-tab-header-inner-icon { display: none; }
+.mod-root .workspace-tab-header-inner > .qc-tab-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin-inline-end: 6px;
+  pointer-events: none;
+}
+.qc-tab-icon svg { display: block; width: 16px; height: 16px; }
