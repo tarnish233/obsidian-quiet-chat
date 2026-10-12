@@ -161,6 +161,16 @@ body:not(.is-mobile) .mod-root .workspace-tab-container {
   background: var(--background-secondary);
 }
 .nav-files-container { padding: 8px 10px 16px; }
+/* Reserve space for the tree chevron, which hangs 20px left of its icon.
+   Its glyph now aligns with the first toolbar button glyph. */
+body:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-files-container {
+  padding-inline-start: 36px;
+}
+/* The virtual file tree keeps an inline-width spacer. Constrain it to the
+   padded content area so revealing a file cannot scroll the tree sideways. */
+body:not(.is-mobile) .workspace-leaf-content[data-type="file-explorer"] .nav-files-container > div > div {
+  max-width: 100%;
+}
 .nav-file-title, .nav-folder-title { margin-bottom: 2px; }
 .nav-folder-title { font-weight: 500; }
 .nav-file-title.is-active { font-weight: 500; }
@@ -195,3 +205,17 @@ button:focus-visible, .clickable-icon:focus-visible {
 @media print {
   .mod-root .workspace-tab-container { box-shadow: none; margin: 0; }
 }
+
+/* File icons share the existing Material Icon Theme resolver. */
+.suggestion-item.mod-complex:has(> .qc-switcher-icon) { align-items: center; }
+.qc-switcher-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin-inline-end: 10px;
+  pointer-events: none;
+}
+.qc-switcher-icon svg { width: 18px; height: 18px; display: block; }

@@ -106,7 +106,7 @@ body {
 .markdown-rendered hr { margin-block: 24px; }
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-header {
   padding-top: 16px;
-  padding-bottom: 4px;
+  padding-bottom: 16px;
 }
 .markdown-source-view.mod-cm6 .cm-line.HyperMD-codeblock { line-height: 1.6; }
 /* Source mode keeps literal blank lines; only visual text styles are shared.

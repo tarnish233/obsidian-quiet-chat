@@ -1,5 +1,6 @@
 import {Plugin,PluginSettingTab,Setting} from 'obsidian';
 import {DEFAULTS,normalize,Settings} from './settings';
+import {installSwitcherIcons} from './switcher-icons';
 const CLASSES=['quiet-chat','qc-hide-ribbon','qc-hide-status','qc-hide-header','qc-system-fonts'];
 export default class QuietChat extends Plugin {
  settings:Settings={...DEFAULTS};
@@ -8,6 +9,7 @@ export default class QuietChat extends Plugin {
   this.settings=normalize(await this.loadData());
   this.attach(this.app.workspace.containerEl.ownerDocument);
   this.app.workspace.onLayoutReady(()=>{
+   installSwitcherIcons(this,()=>this.settings.enabled);
    this.app.workspace.iterateAllLeaves(leaf=>this.attach(leaf.view.containerEl.ownerDocument));
   });
   this.registerEvent(this.app.workspace.on('window-open',(_workspaceWindow,win)=>this.attach(win.document)));

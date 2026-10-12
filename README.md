@@ -19,6 +19,8 @@ Screenshots use synthetic example content, not a real vault.
 ## Features / 功能
 
 - Rounded panes, menus, quick switcher and code blocks.
+- Vertically aligned Quick Switcher file icons, reusing Material Icon Theme when enabled and falling back to a standard file icon.
+- Aligned file-tree padding with constrained spacer widths to prevent sideways scrolling.
 - Typora GitHub-inspired document proportions: 16px text, 1.6 line height, 0.8em paragraph spacing, and 36/28/24/20px heading levels. Implemented for Reading view and Live Preview, with borderless headings to match Quiet Chat.
 - Adjustable pane radius and readable text width.
 - Optional system fonts for text and UI; your code font is preserved.
