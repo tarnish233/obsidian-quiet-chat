@@ -3,9 +3,18 @@ import {DEFAULTS,normalize,Settings,RANGES} from './settings';
 import {installSwitcherIcons} from './switcher-icons';
 import {installTabIcons} from './tab-icons';
 const CLASSES=['quiet-chat','qc-hide-ribbon','qc-hide-status','qc-hide-header','qc-system-fonts'];
+const OPTIONS=[
+ ['radius','--qc-option-radius','px'],['width','--qc-option-width','px'],
+ ['fontSize','--qc-option-font-size','px'],['lineHeight','--qc-option-line-height',''],
+ ['paragraphSpacing','--qc-option-paragraph-spacing','em'],['listSpacing','--qc-option-list-spacing','em'],
+ ['listIndent','--qc-option-list-indent','px'],['listLevelGap','--qc-option-list-level-gap','px'],
+ ['headingScale','--qc-option-heading-scale',''],['headingTop','--qc-option-heading-top','px'],
+ ['headingBottom','--qc-option-heading-bottom','px']
+] as const;
+type OriginalProperty={value:string;priority:string};
 export default class QuietChat extends Plugin {
  settings:Settings={...DEFAULTS};
- private documents=new Map<Document,HTMLStyleElement>();
+ private documents=new Map<Document,Map<string,OriginalProperty>>();
  async onload(){
   this.settings=normalize(await this.loadData());
   this.attach(this.app.workspace.containerEl.ownerDocument);
@@ -22,15 +31,24 @@ export default class QuietChat extends Plugin {
  }
  private attach(doc:Document){
   if(!this.documents.has(doc)){
-   const style=doc.createElement('style');style.dataset.quietChat='options';doc.head.appendChild(style);this.documents.set(doc,style);
+   const originals=new Map<string,OriginalProperty>();
+   for(const [,name] of OPTIONS)originals.set(name,{value:doc.body.style.getPropertyValue(name),priority:doc.body.style.getPropertyPriority(name)});
+   this.documents.set(doc,originals);
   }
   this.apply(doc);
  }
  private apply(doc:Document){
   const s=this.settings;
   for(const [name,enabled] of [['quiet-chat',s.enabled],['qc-hide-ribbon',s.enabled&&s.hideRibbon],['qc-hide-status',s.enabled&&s.hideStatus],['qc-hide-header',s.enabled&&s.hideHeader],['qc-system-fonts',s.enabled&&s.systemFonts]] as const) doc.body.classList.toggle(name,enabled);
-  const style=this.documents.get(doc);
-  if(style)style.textContent=`body.quiet-chat { --qc-pane-radius: ${s.radius}px; --file-line-width: ${s.width}px; --font-text-size: ${s.fontSize}px !important; --line-height-normal: ${s.lineHeight}; --p-spacing: ${s.paragraphSpacing}em; --list-spacing: ${s.listSpacing}em; --list-indent: ${s.listIndent}px; --qc-list-level-gap: ${s.listLevelGap}px; --qc-heading-scale: ${s.headingScale}; --qc-heading-top: ${s.headingTop}px; --qc-heading-bottom: ${s.headingBottom}px; }`;
+  if(s.enabled){
+   for(const [key,name,unit] of OPTIONS)doc.body.style.setProperty(name,String(s[key])+unit);
+  }else this.restore(doc);
+ }
+ private restore(doc:Document){
+  for(const [name,original] of this.documents.get(doc)??[]){
+   if(original.value)doc.body.style.setProperty(name,original.value,original.priority);
+   else doc.body.style.removeProperty(name);
+  }
  }
  async persist(){
   this.settings=normalize(this.settings);
@@ -39,7 +57,7 @@ export default class QuietChat extends Plugin {
  }
  private clean(doc:Document){
   for(const name of CLASSES)doc.body.classList.remove(name);
-  this.documents.get(doc)?.remove();this.documents.delete(doc);
+  this.restore(doc);this.documents.delete(doc);
  }
  onunload(){for(const doc of [...this.documents.keys()])this.clean(doc);}
 }
@@ -47,29 +65,20 @@ class QuietSettings extends PluginSettingTab {
  constructor(app:Plugin['app'],private plugin:QuietChat){super(app,plugin);}
  display(){
   const el=this.containerEl;el.empty();el.addClass('qc-settings');
-  el.createEl('style',{text:`
-   .qc-settings > h2, .qc-settings > .qc-intro { margin-inline:0; padding-inline:0; }
-   .qc-settings > h2 { margin-top:0; margin-bottom:16px; }
-   .qc-settings .qc-en { display:block; margin-top:4px; color:var(--text-muted); font-size:0.85em; font-weight:normal; }
-   .qc-settings .qc-intro { margin-bottom:24px; line-height:1.5; }
-   .qc-settings .qc-section { margin:28px 0 12px; padding:0; }
-   .qc-settings .setting-item-info { min-width:0; }
-   .qc-settings .setting-item-control { flex-shrink:0; gap:10px; }
-   .qc-settings .qc-value { min-width:52px; text-align:right; font-variant-numeric:tabular-nums; color:var(--text-muted); }
-  `});
   const bilingual=(host:HTMLElement,zh:string,en:string)=>{
    host.createDiv({text:zh});host.createSpan({cls:'qc-en',text:en});
   };
-  el.createEl('h2',{text:'Quiet Chat'});
   bilingual(el.createDiv({cls:'qc-intro'}),'建议搭配默认主题。设置实时生效，只改变外观。','Best with the default theme. Changes apply immediately and affect appearance only.');
-  const section=(zh:string,en:string)=>bilingual(el.createEl('h3',{cls:'qc-section'}),zh,en);
+  const section=(zh:string,en:string)=>{
+   const setting=new Setting(el).setHeading();setting.settingEl.addClass('qc-section');
+   bilingual(setting.nameEl,zh,en);
+  };
   const row=(zh:string,en:string,desc?:string,englishDesc?:string)=>{
    const setting=new Setting(el);
    bilingual(setting.nameEl,zh,en);
    if(desc)bilingual(setting.descEl,desc,englishDesc??'');
    return setting;
   };
-  section('界面','Interface');
   const toggles:[keyof Pick<Settings,'enabled'|'hideRibbon'|'hideStatus'|'hideHeader'|'systemFonts'>,string,string,string,string][]=[
    ['enabled','启用外观','Enable appearance','关闭后恢复底层主题。','Turn off to restore the underlying theme.'],
    ['hideRibbon','隐藏左侧功能区','Hide ribbon','若功能区仍不可见，请在 Obsidian 外观设置中开启。','If still hidden, enable the ribbon in Obsidian Appearance settings.'],

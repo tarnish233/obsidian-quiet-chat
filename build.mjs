@@ -19,5 +19,5 @@ css.walkRules(rule=>{
   return 'body.quiet-chat '+s;
  });
 });
-await writeFile('styles.css',css.toString()+'\n'+await readFile('src/options.css','utf8'));
+await writeFile('styles.css',css.toString()+'\n'+await readFile('src/options.css','utf8')+'\n'+await readFile('src/settings.css','utf8'));
 await build({entryPoints:['src/main.ts'],outfile:'main.js',bundle:true,external:['obsidian'],platform:'browser',format:'cjs',target:'es2018',banner:{js:'/* Quiet Chat | MIT | https://github.com/tarnish233/obsidian-quiet-chat */'}});

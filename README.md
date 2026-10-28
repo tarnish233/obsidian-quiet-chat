@@ -30,7 +30,7 @@ Screenshots use synthetic example content, not a real vault.
 - Optional system fonts for text and UI; your code font is preserved.
 - Independent switches for hiding the ribbon, status bar and note header. Hidden Markdown headers retain native view actions in a top-right pill, revealed on corner hover or keyboard focus.
 - **The ribbon is not hidden by default.**
-- Appearance can be toggled with a command; disabling the plugin removes its body classes and option styles.
+- Appearance can be toggled with a command; disabling it removes its body classes and restores its private inline option properties. No style elements are injected at runtime.
 - No network calls, telemetry, note edits, or changes to core settings and shortcuts.
 
 ## Install / 安装
@@ -48,7 +48,7 @@ Requires **Obsidian 1.13.0+ on desktop**. Mobile is not supported in this releas
 
 If you use [BRAT](https://github.com/TfTHacker/obsidian42-brat), add `tarnish233/obsidian-quiet-chat` as a beta plugin repository.
 
-This repository is not yet listed in Obsidian's community plugin directory. BRAT installation has not been separately tested.
+This repository is not yet listed in Obsidian's community plugin directory. BRAT installation has not been separately tested. Maintainers can follow the [community submission guide](docs/community-submission.md); submitting requires the author's own account authorization and policy confirmation.
 
 ## Recommended setup / 建议配置
 
@@ -70,9 +70,9 @@ npm ci
 npm run check
 ```
 
-`src/theme.css` is the base design; the build scopes every selector to `body.quiet-chat` so styles cannot remain active after unloading. `src/typography.css` provides the document typography; `src/options.css` provides setting-controlled styles. `main.js` and `styles.css` are generated release artifacts.
+`src/theme.css` is the base design; the build scopes its selectors to `body.quiet-chat` so appearance styles stop applying when disabled. `src/typography.css` provides the document typography; `src/options.css` maps private CSS option properties to setting-controlled styles. `src/settings.css` is scoped to the settings container so it stays usable when the appearance is off. All CSS ships in `styles.css`; no style elements are created by the plugin. `main.js` and `styles.css` are generated release artifacts.
 
-Checks cover TypeScript compilation, settings validation, selector isolation, hover-header CSS regressions, and cleanup across load/toggle/popout/unload. Desktop light/dark mode, tab alignment and split panes were visually checked during development. Obsidian UI selectors may change in future releases; full third-party theme compatibility is not guaranteed.
+Checks cover TypeScript compilation, settings validation, selector isolation, hover-header CSS regressions, restoration of existing inline CSS values and priorities, and cleanup across load/toggle/popout/unload. Desktop light/dark mode, tab alignment and split panes were visually checked during development. Obsidian UI selectors may change in future releases; full third-party theme compatibility is not guaranteed.
 
 ## Attribution
 

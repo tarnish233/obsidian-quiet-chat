@@ -1,0 +1,8 @@
+/* The settings tab must remain usable when the appearance is turned off. */
+.qc-settings > .qc-intro { margin-inline:0; padding-inline:0; }
+.qc-settings .qc-en { display:block; margin-top:4px; color:var(--text-muted); font-size:0.85em; font-weight:normal; }
+.qc-settings .qc-intro { margin-bottom:24px; line-height:1.5; }
+.qc-settings .qc-section { margin:28px 0 12px; padding:0; }
+.qc-settings .setting-item-info { min-width:0; }
+.qc-settings .setting-item-control { flex-shrink:0; gap:10px; }
+.qc-settings .qc-value { min-width:52px; text-align:right; font-variant-numeric:tabular-nums; color:var(--text-muted); }

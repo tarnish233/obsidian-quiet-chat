@@ -1,3 +1,18 @@
+/* Values are supplied through private inline custom properties, not style
+   elements. Core/theme variables change only while appearance is enabled. */
+body.quiet-chat {
+ --qc-pane-radius: var(--qc-option-radius, 18px);
+ --file-line-width: var(--qc-option-width, 780px);
+ --font-text-size: var(--qc-option-font-size, 16px) !important;
+ --line-height-normal: var(--qc-option-line-height, 1.6);
+ --p-spacing: var(--qc-option-paragraph-spacing, 0.8em);
+ --list-spacing: var(--qc-option-list-spacing, 0.2em);
+ --list-indent: var(--qc-option-list-indent, 30px);
+ --qc-list-level-gap: var(--qc-option-list-level-gap, 0px);
+ --qc-heading-scale: var(--qc-option-heading-scale, 1);
+ --qc-heading-top: var(--qc-option-heading-top, 16px);
+ --qc-heading-bottom: var(--qc-option-heading-bottom, 16px);
+}
 body.quiet-chat.qc-hide-status .status-bar { display:none; }
 body.quiet-chat.qc-hide-ribbon .workspace-ribbon { display:none; }
 body.quiet-chat.qc-hide-header .workspace-leaf-content > .view-header { display:none; }
