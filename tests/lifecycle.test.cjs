@@ -42,3 +42,46 @@ test('typography settings preserve decimals and clamp unsafe values',async()=>{
  assert.ok(a.styles[0].textContent.includes('--qc-heading-bottom: 24px'));
  plugin.onunload();
 });
+
+test('header hiding follows its setting in existing and new windows',async()=>{
+ const {plugin,a,b,events}=setup({hideHeader:true});await plugin.onload();
+ for(const d of [a,b])assert.ok(d.classes.has('qc-hide-header'));
+ plugin.settings.hideHeader=false;await plugin.persist();
+ for(const d of [a,b]){assert.ok(d.classes.has('quiet-chat'));assert.ok(!d.classes.has('qc-hide-header'))}
+ const c=doc();events['window-open']({}, {document:c});assert.ok(!c.classes.has('qc-hide-header'));
+ plugin.settings.hideHeader=true;await plugin.persist();
+ for(const d of [a,b,c])assert.ok(d.classes.has('qc-hide-header'));
+ plugin.settings.enabled=false;await plugin.persist();
+ for(const d of [a,b,c])assert.ok(!d.classes.has('qc-hide-header'));
+ plugin.onunload();for(const d of [a,b,c]){assert.equal(d.classes.size,0);assert.equal(d.styles.length,0)}
+});
+
+test('hidden Markdown headers keep native actions in a corner hover target',()=>{
+ const postcss=require('postcss'),root=postcss.parse(fs.readFileSync('styles.css','utf8'));
+ const leaf='body.quiet-chat.qc-hide-header .mod-root .workspace-leaf-content[data-type="markdown"]';
+ const header=leaf+' > .view-header',actions=header+' > .view-actions';
+ const rule=(selector,media)=>{
+  let found;root.walkRules(r=>{
+   const parentMatches=media?r.parent.type==='atrule'&&r.parent.params===media:r.parent.type==='root';
+   if(parentMatches&&r.selectors.includes(selector))found=r;
+  });assert.ok(found,selector);return Object.fromEntries(found.nodes.filter(n=>n.type==='decl').map(n=>[n.prop,n.value]));
+ };
+ const target=rule(header);
+ // Explicit flex display overrides both the plugin's blanket hide rule and
+ // Obsidian's body:not(.show-view-header) rule. Positioning reclaims the row.
+ assert.equal(target.display,'flex');assert.equal(target.position,'absolute');
+ assert.equal(target.top,'0');assert.equal(target.right,'8px');
+ assert.equal(target.width,'max-content');assert.equal(target.height,'52px');
+ assert.equal(rule(leaf+' > .view-content').height,'100%');
+ assert.equal(rule(header+' > .view-header-left').display,'none');
+ assert.equal(rule(header+' > .view-header-title-container').display,'none');
+ const idle=rule(actions);assert.equal(idle.opacity,'0');assert.equal(idle['pointer-events'],'none');
+ const shown=rule(header+':is(:hover, :focus-within) > .view-actions');
+ assert.equal(shown.opacity,'1');assert.equal(shown['pointer-events'],'auto');assert.equal(shown['transition-delay'],'0ms');
+ assert.equal(rule(header+':has(.has-active-menu) > .view-actions').opacity,'1');
+ assert.equal(rule(actions,'(hover: none)').opacity,'1');
+ assert.equal(rule(actions,'(prefers-reduced-motion: reduce)').transition,'none');
+ assert.equal(rule(header,'print').display,'none');
+ // Hovering the note body must not reveal the controls or intercept its clicks.
+ root.walkRules(r=>{for(const s of r.selectors)assert.ok(!s.includes('.workspace-leaf-content:hover'),s)});
+});

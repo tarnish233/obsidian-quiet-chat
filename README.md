@@ -28,7 +28,7 @@ Screenshots use synthetic example content, not a real vault.
 - Grouped settings with Chinese and English on separate lines.
 - Inset document scroll viewports keep native scrollbars clear of pane corners.
 - Optional system fonts for text and UI; your code font is preserved.
-- Independent switches for hiding the ribbon, status bar and note header.
+- Independent switches for hiding the ribbon, status bar and note header. Hidden Markdown headers retain native view actions in a top-right pill, revealed on corner hover or keyboard focus.
 - **The ribbon is not hidden by default.**
 - Appearance can be toggled with a command; disabling the plugin removes its body classes and option styles.
 - No network calls, telemetry, note edits, or changes to core settings and shortcuts.
@@ -56,6 +56,8 @@ This repository is not yet listed in Obsidian's community plugin directory. BRAT
 - Enable **Editor → Readable line length** for the text-width setting to apply.
 - If the ribbon is missing, turn on **Appearance → Show ribbon** and disable this plugin's **Hide ribbon** option.
 - The plugin follows Obsidian's light/dark mode. It does not force a color mode.
+- With **Hide view header** enabled, hover over the top-right corner of a note for the edit/reading toggle and more-options menu. This also works when Obsidian's own view-header setting is off. Non-hover displays show the buttons permanently.
+  开启「隐藏笔记标题栏」后，将鼠标移到笔记右上角即可显示编辑/阅读切换和更多菜单；无需开启 Obsidian 自身的标题栏选项。
 - Existing custom snippets can affect spacing and colors. Disable conflicting snippets individually.
 - Material file icons are an optional, separate plugin; Quiet Chat bundles no third-party icons.
 
@@ -70,7 +72,7 @@ npm run check
 
 `src/theme.css` is the base design; the build scopes every selector to `body.quiet-chat` so styles cannot remain active after unloading. `src/typography.css` provides the document typography; `src/options.css` provides setting-controlled styles. `main.js` and `styles.css` are generated release artifacts.
 
-Checks cover TypeScript compilation, settings validation, selector isolation, and cleanup across load/toggle/popout/unload. Desktop light/dark mode, tab alignment and split panes were visually checked during development. Obsidian UI selectors may change in future releases; full third-party theme compatibility is not guaranteed.
+Checks cover TypeScript compilation, settings validation, selector isolation, hover-header CSS regressions, and cleanup across load/toggle/popout/unload. Desktop light/dark mode, tab alignment and split panes were visually checked during development. Obsidian UI selectors may change in future releases; full third-party theme compatibility is not guaranteed.
 
 ## Attribution
 

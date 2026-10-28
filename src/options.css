@@ -1,6 +1,81 @@
 body.quiet-chat.qc-hide-status .status-bar { display:none; }
 body.quiet-chat.qc-hide-ribbon .workspace-ribbon { display:none; }
 body.quiet-chat.qc-hide-header .workspace-leaf-content > .view-header { display:none; }
+
+/* Keep Markdown's native view actions even when Obsidian's own header option
+   is off. Only this small top-right corner is a hover target, not the note. */
+body.quiet-chat.qc-hide-header .mod-root .workspace-leaf-content[data-type="markdown"] > .view-header {
+ display: flex;
+ position: absolute;
+ top: 0;
+ right: 8px;
+ left: auto;
+ width: max-content;
+ max-width: calc(100% - 16px);
+ min-width: 100px;
+ height: 52px;
+ box-sizing: border-box;
+ align-items: center;
+ justify-content: flex-end;
+ gap: 0;
+ padding: 8px;
+ border: 0;
+ background: transparent;
+ box-shadow: none;
+ z-index: 5;
+}
+body.quiet-chat.qc-hide-header .mod-root .workspace-leaf-content[data-type="markdown"] > .view-header > .view-header-left,
+body.quiet-chat.qc-hide-header .mod-root .workspace-leaf-content[data-type="markdown"] > .view-header > .view-header-title-container {
+ display: none;
+}
+body.quiet-chat.qc-hide-header .mod-root .workspace-leaf-content[data-type="markdown"] > .view-header > .view-actions {
+ gap: 2px;
+ padding: 3px;
+ border: 1px solid var(--background-modifier-border);
+ border-radius: 999px;
+ background: var(--background-primary);
+ box-shadow: var(--qc-shadow);
+ opacity: 0;
+ transform: translateY(-2px);
+ pointer-events: none;
+ transition: opacity 140ms ease 180ms, transform 140ms ease 180ms;
+}
+body.quiet-chat.qc-hide-header .mod-root .workspace-leaf-content[data-type="markdown"] > .view-header > .view-actions > .view-action {
+ min-width: 28px;
+ height: 28px;
+ padding: 5px;
+ border-radius: 999px;
+}
+body.quiet-chat.qc-hide-header .mod-root .workspace-leaf-content[data-type="markdown"] > .view-header:is(:hover, :focus-within) > .view-actions,
+body.quiet-chat.qc-hide-header .mod-root .workspace-leaf-content[data-type="markdown"] > .view-header:has(.has-active-menu) > .view-actions {
+ opacity: 1;
+ transform: none;
+ pointer-events: auto;
+ transition-delay: 0ms;
+}
+/* The absolute header must not leave the usual 40px gap below the note. */
+body.quiet-chat.qc-hide-header .mod-root .workspace-leaf-content[data-type="markdown"] > .view-content {
+ height: 100%;
+}
+@media (hover: none) {
+ body.quiet-chat.qc-hide-header .mod-root .workspace-leaf-content[data-type="markdown"] > .view-header > .view-actions {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition: none;
+ }
+}
+@media (prefers-reduced-motion: reduce) {
+ body.quiet-chat.qc-hide-header .mod-root .workspace-leaf-content[data-type="markdown"] > .view-header > .view-actions {
+  transform: none;
+  transition: none;
+ }
+}
+@media print {
+ body.quiet-chat.qc-hide-header .mod-root .workspace-leaf-content[data-type="markdown"] > .view-header {
+  display: none;
+ }
+}
 body.quiet-chat.qc-system-fonts {
  --font-interface: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
  --font-text: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;

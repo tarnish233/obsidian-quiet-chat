@@ -74,7 +74,7 @@ class QuietSettings extends PluginSettingTab {
    ['enabled','启用外观','Enable appearance','关闭后恢复底层主题。','Turn off to restore the underlying theme.'],
    ['hideRibbon','隐藏左侧功能区','Hide ribbon','若功能区仍不可见，请在 Obsidian 外观设置中开启。','If still hidden, enable the ribbon in Obsidian Appearance settings.'],
    ['hideStatus','隐藏状态栏','Hide status bar','减少底部常驻元素。','Hide the status information at the bottom.'],
-   ['hideHeader','隐藏笔记标题栏','Hide view header','保留顶部标签和侧栏切换按钮。','Keep tabs and sidebar toggles visible.'],
+   ['hideHeader','隐藏笔记标题栏','Hide view header','保留顶部标签；鼠标移到笔记右上角时显示编辑/阅读切换和更多菜单。','Keep tabs visible; hover over the top-right corner of a note for the view toggle and menu.'],
    ['systemFonts','使用系统字体','Use system fonts','覆盖界面和正文，保留代码字体。','Apply to the interface and text; keep the code font.']];
   for(const [key,zh,en,desc,eng] of toggles)row(zh,en,desc,eng).addToggle(t=>t.setValue(this.plugin.settings[key]).onChange(async v=>{this.plugin.settings[key]=v;await this.plugin.persist();}));
   const slider=(key:keyof typeof RANGES,zh:string,en:string,unit:string,desc?:string,eng?:string)=>{
