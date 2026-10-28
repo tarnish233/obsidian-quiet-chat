@@ -121,4 +121,4 @@ Quick Switcher 图标装饰依赖其内部渲染原型，标签图标依赖工�
 - [Manage your plugin or theme](https://docs.obsidian.md/community-directory/manage-entry)
 - [Developer policies](https://docs.obsidian.md/community-directory/developer-policies)
 - [Submission requirements for plugins](https://docs.obsidian.md/community-directory/submission-requirements-for-plugins)
-- [Official ESLint plugin and scanner configuration](https://github.com/obsidianmd/eslint-plugin/blob/main/docs/configuration.md)
+- [Official ESLint plugin and scanner configuration](https://github.com/obsidianmd/eslint-plugin/blob/master/docs/configuration.md)
