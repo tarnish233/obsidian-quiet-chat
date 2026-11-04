@@ -2,7 +2,7 @@
 
 **当前状态：尚未提交到 Obsidian 社区目录。** 本说明供仓库作者手动登录、确认政策和维护承诺后提交；本地预检通过不代表已经获得官方审核或上架。
 
-当前提交版本：**1.3.3**。这是桌面外观插件，不提供聊天或 AI 服务。
+当前提交版本：**1.3.4**。这是桌面外观插件，不提供聊天或 AI 服务。
 
 ## 1. 登录并关联 GitHub
 
@@ -31,7 +31,7 @@ https://github.com/tarnish233/obsidian-quiet-chat
 | Name | Quiet Chat |
 | ID | quiet-chat |
 | Author | tarnish233 |
-| Version | 1.3.3 |
+| Version | 1.3.4 |
 | Minimum Obsidian version | 1.13.0 |
 | Desktop only | true |
 | License | MIT |
@@ -46,7 +46,7 @@ https://github.com/tarnish233/obsidian-quiet-chat
 
 - **Error**：需要修正后发布新版本；目录存在错误时，用户无法在 Obsidian 内安装。
 - **Warning / Recommendation**：官方文档说明警告不会阻止提交，但建议在可行时处理。
-- 可通过 **Review branch** 选择 `1.3.3` 并运行预览扫描。
+- 可通过 **Review branch** 选择 `1.3.4` 并运行预览扫描。
 - 发布修正版本后，可以使用 **... → Check for new releases** 或 **Request review** 请求更新检查。
 
 如果有错误，把完整的扫描信息和对应规则发给维护者处理。不要覆盖旧版本的 Release；源代码改动应发布新的版本号和对应的安装包。
@@ -101,18 +101,19 @@ Requires Obsidian 1.13.0 or newer on desktop. Works best with the Default theme;
 
 - 公开 GitHub 仓库、根目录 `README.md`、`LICENSE`、`manifest.json` 已具备。
 - MIT 许可证可被 GitHub 识别。
-- GitHub Release `1.3.3` 对应 manifest 版本，并附带 `main.js`、`manifest.json`、`styles.css`。
-- `npm run check`：TypeScript 编译及 **8 项测试通过**。
+- GitHub Release `1.3.4` 对应 manifest 版本，并附带 `main.js`、`manifest.json`、`styles.css`。
+- `npm run check`：TypeScript 编译及 **9 项测试通过**。
 - 使用官方 `eslint-plugin-obsidianmd`，按其文档所述的社区扫描器规则严重度对 `src/` 做本地预检：**0 errors，7 warnings**。这不是社区网站的正式扫描，也不包含网站的构建重现验证。
 - 已修复运行时创建 `<style>` 标签的问题：静态样式随 `styles.css` 分发，动态参数使用私有 CSS 变量，并在关闭外观或卸载时恢复原有内联值及优先级。
 - 设置分组改用原生 `Setting.setHeading()`，移除了顶层插件名称标题。
+- 隐藏功能区时同步把 `--ribbon-width` 归零，避免 Obsidian 1.15 把侧栏首个视图图标放进 macOS 红绿灯区域。
 - 剩余建议主要涉及声明式设置及设置搜索、旧设置刷新/滑块 API、按钮大小写，以及 DOM 创建辅助 API。它们在该本地扫描配置中均为警告，未通过关闭安全规则绕过预检。
 
 ## 维护注意事项
 
 Quick Switcher 图标装饰依赖其内部渲染原型，标签图标依赖工作区 DOM，Material Icon Theme 图标来自可选插件的接口。这些并非全部为稳定公共 API，升级 Obsidian 或相关插件后需要回归验证；失效时应保留原生界面并移除本插件的装饰。
 
-每次发布时，保持 `manifest.json`、`package.json`、`package-lock.json` 和 `versions.json` 的版本信息一致，Release 标签必须精确等于 manifest 版本，如 `1.3.3`，而不是 `v1.3.3`。
+每次发布时，保持 `manifest.json`、`package.json`、`package-lock.json` 和 `versions.json` 的版本信息一致，Release 标签必须精确等于 manifest 版本，如 `1.3.4`，而不是 `v1.3.4`。
 
 ## 官方参考
 

@@ -95,6 +95,19 @@ test('hidden Markdown headers keep native actions in a corner hover target',()=>
  root.walkRules(r=>{for(const s of r.selectors)assert.ok(!s.includes('.workspace-leaf-content:hover'),s)});
 });
 
+test('hiding the ribbon releases its reserved macOS frame width',()=>{
+ const postcss=require('postcss'),root=postcss.parse(fs.readFileSync('styles.css','utf8'));
+ let hidden,base;
+ root.walkRules(r=>{
+  if(r.selectors.includes('body.quiet-chat.qc-hide-ribbon'))hidden=r;
+  if(r.selectors.includes('body.quiet-chat'))base=r;
+ });
+ assert.ok(hidden);assert.ok(base);
+ assert.equal(hidden.nodes.find(n=>n.prop==='--ribbon-width').value,'0px');
+ // A visible ribbon still needs its native width for the traffic-light inset.
+ assert.ok(!base.nodes.some(n=>n.type==='decl'&&n.prop==='--ribbon-width'));
+});
+
 test('private option properties restore existing inline values and priorities',async()=>{
  const {plugin,a,b,events}=setup(null);
  a.body.style.setProperty('--qc-option-radius','7px','important');

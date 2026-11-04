@@ -14,6 +14,10 @@ body.quiet-chat {
  --qc-heading-bottom: var(--qc-option-heading-bottom, 16px);
 }
 body.quiet-chat.qc-hide-status .status-bar { display:none; }
+/* Core reserves --ribbon-width inside the macOS frame inset even when the
+   ribbon element is hidden. Release it so the first sidebar tab stays clear
+   of the traffic lights (Obsidian 1.15+ puts those tabs at the window edge). */
+body.quiet-chat.qc-hide-ribbon { --ribbon-width: 0px; }
 body.quiet-chat.qc-hide-ribbon .workspace-ribbon { display:none; }
 body.quiet-chat.qc-hide-header .workspace-leaf-content > .view-header { display:none; }
 
