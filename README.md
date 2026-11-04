@@ -37,6 +37,12 @@ Screenshots use synthetic example content, not a real vault.
 
 Requires **Obsidian 1.13.0+ on desktop**. Mobile is not supported in this release.
 
+### Community plugins
+
+Quiet Chat is listed in Obsidian's community plugin directory. Open **Settings → Community plugins → Browse**, search for **Quiet Chat**, and install it there.
+
+If it does not appear in Browse yet, use one of the manual methods below.
+
 ### Manual
 
 1. Download `main.js`, `manifest.json`, and `styles.css` from [Releases](https://github.com/tarnish233/obsidian-quiet-chat/releases).
@@ -48,7 +54,7 @@ Requires **Obsidian 1.13.0+ on desktop**. Mobile is not supported in this releas
 
 If you use [BRAT](https://github.com/TfTHacker/obsidian42-brat), add `tarnish233/obsidian-quiet-chat` as a beta plugin repository.
 
-This repository is not yet listed in Obsidian's community plugin directory. BRAT installation has not been separately tested. Maintainers can follow the [community submission guide](docs/community-submission.md); submitting requires the author's own account authorization and policy confirmation.
+BRAT installation has not been separately tested. Directory review status and maintenance notes are documented in the [community submission guide](docs/community-submission.md).
 
 ## Recommended setup / 建议配置
 

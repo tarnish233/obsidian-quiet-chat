@@ -19,8 +19,7 @@ export function installSwitcherIcons(plugin: Plugin, enabled: () => boolean) {
   if (!enabled()) return;
   const path = suggestion?.file?.path ?? (suggestion?.item?.type === 'file' ? suggestion.item.path : undefined);
   if (!path) return;
-  const icon = row.ownerDocument.createElement('span');
-  icon.className = 'qc-switcher-icon';
+  const icon = row.createSpan({cls:'qc-switcher-icon'});
   icon.setAttribute('aria-hidden', 'true');
   try {
    const provider = app.plugins?.plugins?.['material-icon-theme'];

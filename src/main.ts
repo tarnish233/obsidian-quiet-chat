@@ -91,7 +91,7 @@ class QuietSettings extends PluginSettingTab {
    const format=(v:number)=>`${Number(v.toFixed(2))}${unit}`;
    value.setText(format(this.plugin.settings[key]));
    const [min,max,step]=RANGES[key];
-   setting.addSlider(s=>s.setLimits(min,max,step).setValue(this.plugin.settings[key]).setDynamicTooltip().onChange(async v=>{
+   setting.addSlider(s=>s.setLimits(min,max,step).setValue(this.plugin.settings[key]).onChange(async v=>{
     this.plugin.settings[key]=v;value.setText(format(v));await this.plugin.persist();
    }));
   };
@@ -109,6 +109,6 @@ class QuietSettings extends PluginSettingTab {
   slider('headingTop','标题上方间距','Space above headings','px');
   slider('headingBottom','标题下方间距','Space below headings','px');
   section('重置','Reset');
-  row('恢复默认','Restore defaults').addButton(b=>b.setButtonText('恢复 / Reset').onClick(async()=>{this.plugin.settings={...DEFAULTS};await this.plugin.persist();this.display();}));
+  row('恢复默认','Restore defaults').addButton(b=>b.setButtonText('恢复 / Reset').onClick(async()=>{this.plugin.settings={...DEFAULTS};await this.plugin.persist();this.update();}));
  }
 }

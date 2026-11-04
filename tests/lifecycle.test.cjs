@@ -108,6 +108,15 @@ test('hiding the ribbon releases its reserved macOS frame width',()=>{
  assert.ok(!base.nodes.some(n=>n.type==='decl'&&n.prop==='--ribbon-width'));
 });
 
+test('runtime code uses current Obsidian DOM and settings APIs',()=>{
+ const files=['src/switcher-icons.ts','src/tab-icons.ts','src/main.ts'];
+ const source=files.map(file=>fs.readFileSync(file,'utf8')).join('\n');
+ assert.ok(!source.includes('document.createElement'));
+ assert.ok(!source.includes('setDynamicTooltip'));
+ assert.ok(!source.includes('this.display()'));
+ assert.ok(source.includes('createSpan('));
+});
+
 test('private option properties restore existing inline values and priorities',async()=>{
  const {plugin,a,b,events}=setup(null);
  a.body.style.setProperty('--qc-option-radius','7px','important');

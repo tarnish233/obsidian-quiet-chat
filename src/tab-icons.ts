@@ -13,8 +13,7 @@ export function installTabIcons(plugin: Plugin) {
    if (!inner) return;
    let icon = inner.querySelector<HTMLElement>(':scope > .qc-tab-icon');
    if (!icon) {
-    icon = inner.ownerDocument.createElement('span');
-    icon.className = 'qc-tab-icon';
+    icon = inner.createSpan({cls:'qc-tab-icon'});
     icon.hidden = true; // Plugin-scoped CSS reveals it only while enabled.
     icon.setAttribute('aria-hidden', 'true');
     inner.prepend(icon);
