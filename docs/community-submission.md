@@ -1,8 +1,8 @@
 # 社区目录提交说明 / Community directory submission
 
-**当前状态：已提交并通过审核。** 1.3.4 的 Review 为 **Satisfactory**，条目已开放 **Add to Obsidian**；发布 1.3.5 后会重新扫描。本说明保留提交流程、审核结果和后续维护步骤。
+**当前状态：插件条目已通过审核。** 已确认 1.3.4 的 Review 为 **Satisfactory**，条目已开放 **Add to Obsidian**；新版本仍需重新扫描。本说明保留提交流程、已确认的审核结果和后续维护步骤。
 
-当前发布版本：**1.3.5**。1.3.4 为已通过审核的版本。这是桌面外观插件，不提供聊天或 AI 服务。
+当前 GitHub 发布版本：**1.3.6**。1.3.4 是此前已确认通过审核的版本，新版本的审核状态以社区目录为准。这是桌面外观插件，不提供聊天或 AI 服务。
 
 社区目录条目：<https://community.obsidian.md/plugins/quiet-chat>
 
@@ -35,7 +35,7 @@ https://github.com/tarnish233/obsidian-quiet-chat
 | Name | Quiet Chat |
 | ID | quiet-chat |
 | Author | tarnish233 |
-| Version | 1.3.5 |
+| Version | 1.3.6 |
 | Minimum Obsidian version | 1.13.0 |
 | Desktop only | true |
 | License | MIT |
@@ -54,7 +54,9 @@ https://github.com/tarnish233/obsidian-quiet-chat
 - **Disclosures 1**：恶意软件扫描服务不可用，属于扫描器限制。
 - **Warnings 11 / Other 4**：主要为 `!important`、`:has`、`createElement`、设置 API 迁移、缺少 GitHub artifact attestations，以及已弃用 API 提示；均未阻断上架。
 
-1.3.5 修复了其中低风险的部分：`createElement`、`setDynamicTooltip()`、`display()` 刷新。发布后目录会重新扫描，可在 **Review branch** 选择 `1.3.5` 查看结果。
+1.3.5 修复了其中低风险的部分：`createElement`、`setDynamicTooltip()`、`display()` 刷新。
+
+1.3.6 将编辑面板的左右和底部间距统一为 **10px**，修复侧栏收起后左侧留白比底部窄的问题。发布后目录仍需重新扫描，可在 **Review branch** 选择 `1.3.6` 查看结果。
 
 - **Error**：需要修正后发布新版本；存在错误时用户无法在 Obsidian 内安装。
 - **Warning / Recommendation**：不会阻止上架，可在后续版本处理。
@@ -104,7 +106,7 @@ Requires Obsidian 1.13.0 or newer on desktop. Works best with the Default theme;
 
 ## 5. 审核与发布
 
-1.3.4 已通过审核并开放安装。1.3.5 发布后会进入新的扫描；保存展示信息，确认没有 **Error** 后按目录页面提示处理。
+1.3.4 此前已确认通过审核并开放安装。GitHub Release `1.3.6` 发布不代表该版本已完成社区审核；在管理页确认新版本已被识别并请求扫描，确认没有 **Error** 后按目录页面提示处理。
 
 GitHub 的 `community-plugins.json` 镜像可能比官网晚一些同步；如果 Obsidian 内暂时搜不到，通常是同步延迟，不代表审核失败。
 
@@ -112,21 +114,22 @@ GitHub 的 `community-plugins.json` 镜像可能比官网晚一些同步；如�
 
 - 公开 GitHub 仓库、根目录 `README.md`、`LICENSE`、`manifest.json` 已具备。
 - MIT 许可证可被 GitHub 识别。
-- GitHub Release `1.3.5` 对应 manifest 版本，并附带 `main.js`、`manifest.json`、`styles.css`。
-- `npm run check`：TypeScript 编译及 **10 项测试通过**。
-- 使用官方 `eslint-plugin-obsidianmd`，按其文档所述的社区扫描器规则严重度对 `src/` 做本地预检：**0 errors，7 warnings**。这不是社区网站的正式扫描，也不包含网站的构建重现验证。
+- GitHub Release `1.3.6` 对应 manifest 版本，并附带 `main.js`、`manifest.json`、`styles.css`。
+- `npm run check`：TypeScript 编译及 **11 项测试通过**，包含面板左右和底部共用同一间距变量的回归检查。
+- 1.3.4 发布前使用官方 `eslint-plugin-obsidianmd`，按其文档所述的社区扫描器规则严重度对 `src/` 做本地预检：**0 errors，7 warnings**。这不是社区网站的正式扫描，也不包含网站的构建重现验证。
 - 1.3.4 正式审核：Review **Satisfactory**，Health **Excellent**，4 项通过，15 条非阻断建议。
 - 已修复运行时创建 `<style>` 标签的问题：静态样式随 `styles.css` 分发，动态参数使用私有 CSS 变量，并在关闭外观或卸载时恢复原有内联值及优先级。
 - 设置分组改用原生 `Setting.setHeading()`，移除了顶层插件名称标题。
 - 隐藏功能区时同步把 `--ribbon-width` 归零，避免 Obsidian 1.15 把侧栏首个视图图标放进 macOS 红绿灯区域。
 - 1.3.5 将图标节点创建改为 Obsidian 的 `createSpan()`，移除已弃用的 `setDynamicTooltip()`，并用 `update()` 刷新设置页。
+- 1.3.6 统一面板左右和底部间距，侧栏拖拽手柄同步引用该变量；Obsidian 1.15 实测收起左侧栏时左侧和底部均为 10px，无运行时错误。
 - 剩余建议主要涉及 `!important`、`:has`、声明式设置及设置搜索，以及 GitHub artifact attestations。它们均为非阻断建议，未通过关闭安全规则绕过预检。
 
 ## 维护注意事项
 
 Quick Switcher 图标装饰依赖其内部渲染原型，标签图标依赖工作区 DOM，Material Icon Theme 图标来自可选插件的接口。这些并非全部为稳定公共 API，升级 Obsidian 或相关插件后需要回归验证；失效时应保留原生界面并移除本插件的装饰。
 
-每次发布时，保持 `manifest.json`、`package.json`、`package-lock.json` 和 `versions.json` 的版本信息一致，Release 标签必须精确等于 manifest 版本，如 `1.3.5`，而不是 `v1.3.5`。
+每次发布时，保持 `manifest.json`、`package.json`、`package-lock.json` 和 `versions.json` 的版本信息一致，Release 标签必须精确等于 manifest 版本，如 `1.3.6`，而不是 `v1.3.6`。
 
 ## 官方参考
 

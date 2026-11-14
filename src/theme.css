@@ -4,7 +4,7 @@ body {
   --font-text-size: 16px;
   --line-height-normal: 1.7;
   --file-line-width: 780px;
-  --qc-pane-gap: 7px;
+  --qc-pane-gap: 10px;
   --file-margins: 36px 44px 64px;
   --radius-s: 6px;
   --radius-m: 10px;
@@ -147,8 +147,9 @@ body:not(.is-mobile) .sidebar-toggle-button {
 .workspace-tab-header::before, .workspace-tab-header::after,
 .workspace-tab-header-inner::after { display: none; }
 .workspace-tab-header.is-active { border-radius: 10px; }
+/* Keep the exposed side and bottom insets equal when sidebars collapse. */
 body:not(.is-mobile) .mod-root .workspace-tab-container {
-  margin: 0 var(--qc-pane-gap) 10px;
+  margin: 0 var(--qc-pane-gap) var(--qc-pane-gap);
   border-radius: var(--qc-pane-radius, 18px);
   background: var(--background-primary);
   box-shadow: var(--qc-shadow);
@@ -258,7 +259,7 @@ body:not(.is-mobile) .workspace-split.mod-sidedock > .workspace-leaf-resize-hand
   content: '';
   position: absolute;
   top: calc(var(--header-height) + var(--qc-pane-radius, 18px));
-  bottom: calc(10px + var(--qc-pane-radius, 18px));
+  bottom: calc(var(--qc-pane-gap) + var(--qc-pane-radius, 18px));
   left: 1px;
   width: 2px;
   border-radius: 2px;

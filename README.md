@@ -18,7 +18,7 @@ Screenshots use synthetic example content, not a real vault.
 
 ## Features / 功能
 
-- Rounded panes, menus, quick switcher and code blocks.
+- Rounded panes, menus, quick switcher and code blocks. Pane side and bottom insets stay at a consistent 10px, including when sidebars are collapsed.
 - File-tab icons matching the sidebar and Quick Switcher, with vertical centering and cleanup on unload.
 - Vertically aligned Quick Switcher file icons, reusing Material Icon Theme when enabled and falling back to a standard file icon.
 - Aligned file-tree padding with constrained spacer widths to prevent sideways scrolling.
@@ -78,7 +78,7 @@ npm run check
 
 `src/theme.css` is the base design; the build scopes its selectors to `body.quiet-chat` so appearance styles stop applying when disabled. `src/typography.css` provides the document typography; `src/options.css` maps private CSS option properties to setting-controlled styles. `src/settings.css` is scoped to the settings container so it stays usable when the appearance is off. All CSS ships in `styles.css`; no style elements are created by the plugin. `main.js` and `styles.css` are generated release artifacts.
 
-Checks cover TypeScript compilation, settings validation, selector isolation, hover-header CSS regressions, restoration of existing inline CSS values and priorities, and cleanup across load/toggle/popout/unload. Desktop light/dark mode, tab alignment and split panes were visually checked during development. Obsidian UI selectors may change in future releases; full third-party theme compatibility is not guaranteed.
+Checks cover TypeScript compilation, settings validation, selector isolation, equal pane insets, hover-header CSS regressions, restoration of existing inline CSS values and priorities, and cleanup across load/toggle/popout/unload. Desktop light/dark mode, tab alignment and split panes were visually checked during development. Obsidian UI selectors may change in future releases; full third-party theme compatibility is not guaranteed.
 
 ## Attribution
 

@@ -108,6 +108,22 @@ test('hiding the ribbon releases its reserved macOS frame width',()=>{
  assert.ok(!base.nodes.some(n=>n.type==='decl'&&n.prop==='--ribbon-width'));
 });
 
+test('rounded panes keep equal side and bottom insets when sidebars collapse',()=>{
+ const postcss=require('postcss'),root=postcss.parse(fs.readFileSync('styles.css','utf8'));
+ let gap,pane,handle,print;
+ root.walkDecls('--qc-pane-gap',d=>{gap=d});
+ root.walkRules(r=>{
+  if(r.selectors.includes('body.quiet-chat:not(.is-mobile) .mod-root .workspace-tab-container'))pane=r;
+  if(r.selectors.includes('body.quiet-chat:not(.is-mobile) .workspace-split.mod-sidedock > .workspace-leaf-resize-handle::after'))handle=r;
+  if(r.parent.type==='atrule'&&r.parent.params==='print'&&r.selectors.includes('body.quiet-chat .mod-root .workspace-tab-container'))print=r;
+ });
+ assert.ok(gap);assert.ok(pane);assert.ok(handle);assert.ok(print);
+ assert.equal(gap.value,'10px');
+ assert.equal(pane.nodes.find(n=>n.prop==='margin').value,'0 var(--qc-pane-gap) var(--qc-pane-gap)');
+ assert.equal(handle.nodes.find(n=>n.prop==='bottom').value,'calc(var(--qc-pane-gap) + var(--qc-pane-radius, 18px))');
+ assert.equal(print.nodes.find(n=>n.prop==='margin').value,'0');
+});
+
 test('runtime code uses current Obsidian DOM and settings APIs',()=>{
  const files=['src/switcher-icons.ts','src/tab-icons.ts','src/main.ts'];
  const source=files.map(file=>fs.readFileSync(file,'utf8')).join('\n');
